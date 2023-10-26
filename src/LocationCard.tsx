@@ -1,11 +1,11 @@
-import { Fragment, useEffect, useState, useContext } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { Card, Typography, Button, Autocomplete } from '@mui/joy'
 import { StarOutlined, StarBorder } from '@mui/icons-material'
 import style from './LocationCard.module.css'
 
 import HourCard from './HourCard.tsx'
 import { SettingsContext } from './settings.ts'
-import { ForecastResponse } from './weather_api.ts'
+import type { ForecastResponse } from './weather_api.ts'
 import * as weather_api from './weather_api.ts'
 
 interface Params {
