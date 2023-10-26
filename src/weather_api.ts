@@ -37,8 +37,13 @@ interface ForecastDay {
     },
 }
 
-export interface Forecast {
+interface Forecast {
     forecastday: ForecastDay[],
+}
+
+export interface ForecastResponse {
+    forecast: Forecast,
+    current: Current,
 }
 
 export interface QueryParams {
@@ -47,7 +52,7 @@ export interface QueryParams {
     alerts?: boolean,
 }
 
-export async function forecast(params: QueryParams): Promise<Forecast> {
+export async function forecast(params: QueryParams): Promise<ForecastResponse> {
     const query = new URLSearchParams()
     query.set('key', API_KEY)
     query.set('q', params.location)
@@ -55,6 +60,6 @@ export async function forecast(params: QueryParams): Promise<Forecast> {
     query.set('alerts', params.alerts ? 'yes' : 'no')
 
     const response = await axios.get(`${ API_URI }/forecast.json?${ query }`)
-    return response.data.forecast
+    return response.data
 }
 
