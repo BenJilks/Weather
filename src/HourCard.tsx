@@ -2,20 +2,7 @@ import Card from '@mui/joy/Card'
 import Typography from '@mui/joy/Typography'
 import style from './HourCard.module.css'
 
-interface Hour {
-    time: string,
-    time_epoch: number,
-
-    chance_of_rain: number,
-    chance_of_snow: number,
-    cloud: number,
-
-    condition: {
-        code: number,
-        text: string,
-        icon: string,
-    },
-}
+import { Hour } from './weather_api.ts'
 
 interface Params {
     hour?: Hour,
