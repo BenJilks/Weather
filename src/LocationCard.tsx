@@ -69,7 +69,7 @@ export default function LocationCard({ location, is_favourited, cities, on_updat
                 </div>
 
                 <div className={ style.hour_list }>
-                    { day?.hour?.map(hour => <HourCard hour={ hour } />) }
+                    { day?.hour?.map((hour, index) => <HourCard key={ index } hour={ hour } />) }
                 </div>
             </div>
         </Card>

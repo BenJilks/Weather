@@ -66,6 +66,7 @@ function App() {
                     .sort((a, b) => (a.is_favourited ? 0 : 1) - (b.is_favourited ? 0 : 1))
                     .map((location, index) =>
                         <LocationCard
+                            key={ index }
                             location={ location.location }
                             is_favourited={ location.is_favourited }
                             cities={ cities }
