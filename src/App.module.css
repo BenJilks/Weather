@@ -15,6 +15,6 @@
 .settings {
     display: flex;
     gap: 0.4em;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
