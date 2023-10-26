@@ -14,6 +14,7 @@ export default function LocationCard({ location }: Params) {
     const [forecast_response, set_forecast_response] = useState(null as null | ForecastResponse)
     const forecast = forecast_response?.forecast
     const day = forecast?.forecastday?.[0]
+    const current = forecast_response?.current
 
     useEffect(() => {
         weather_api.forecast({ location }).then(set_forecast_response)
@@ -24,6 +25,7 @@ export default function LocationCard({ location }: Params) {
             <div className={ style.location }>
                 <div className={ style.day_info }>
                     <Typography level='h3'>{ location }</Typography>
+                    <Typography level='body-md'>{ current?.temp_c }°C</Typography>
                 </div>
 
                 <div className={ style.hour_list }>
