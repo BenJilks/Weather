@@ -3,6 +3,8 @@
     display: grid;
     grid-template-rows: 1fr, auto;
     height: min-content;
+    width: 100%;
+    min-width: 3em;
 
     align-items: center;
     justify-content: center;
