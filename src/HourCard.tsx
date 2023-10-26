@@ -1,4 +1,3 @@
-import Card from '@mui/joy/Card'
 import Typography from '@mui/joy/Typography'
 import style from './HourCard.module.css'
 
@@ -14,13 +13,15 @@ export default function HourCard({ hour }: Params) {
     }
 
     const condition = hour.condition
+    const time = new Date(hour.time)
+
     return (
-        <Card className={ style.card }>
+        <div className={ style.card }>
             <img className={ style.icon } src={ condition.icon } />
-            <Typography className={ style.status } level='title-lg'>
-                { condition.text }
+            <Typography className={ style.status } level='body-md'>
+                { time.getHours() }
             </Typography>
-        </Card>
+        </div>
     )
 }
 

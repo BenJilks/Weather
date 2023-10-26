@@ -2,17 +2,21 @@
 .card {
     display: grid;
     grid-template-rows: 1fr, auto;
+    height: min-content;
+
+    align-items: center;
+    justify-content: center;
 }
 
 .icon {
     grid-row: 1;
 
     width: 100%;
-    height: 100%;
-    object-fit: fill;
+    object-fit: cover;
 }
 
 .status {
     grid-row: 2;
+    text-align: center;
 }
 
