@@ -40,14 +40,16 @@ function App() {
     return (
         <div className={ style.location_list }>
             {
-                locations.map((location, index) =>
-                    <LocationCard
-                        location={ location.location }
-                        is_favourited={ location.is_favourited }
-                        on_update={ (location, is_favourited) => on_location_change(index, location, is_favourited) }
-                        on_remove={ () => on_remove(index) }
-                    />
-                )
+                locations
+                    .sort((a, b) => (a.is_favourited ? 0 : 1) - (b.is_favourited ? 0 : 1))
+                    .map((location, index) =>
+                        <LocationCard
+                            location={ location.location }
+                            is_favourited={ location.is_favourited }
+                            on_update={ (location, is_favourited) => on_location_change(index, location, is_favourited) }
+                            on_remove={ () => on_remove(index) }
+                        />
+                    )
             }
             <div className={ style.actions }>
                 <Button variant='outlined' onClick={ on_add_new }>Add New Location</Button>
