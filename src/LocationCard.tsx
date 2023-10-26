@@ -11,18 +11,21 @@ import * as weather_api from './weather_api.ts'
 interface Params {
     location: string,
     is_favourited: boolean,
+    cities: string[],
 
     on_update: (location: string, is_favourited: boolean) => void,
     on_remove: () => void,
 }
 
-export default function LocationCard({ location, is_favourited, on_update, on_remove }: Params) {
+export default function LocationCard({ location, is_favourited, cities, on_update, on_remove }: Params) {
     const [forecast_response, set_forecast_response] = useState(null as null | ForecastResponse)
     const forecast = forecast_response?.forecast
     const day = forecast?.forecastday?.[0]
     const current = forecast_response?.current
     useEffect(() => {
-        weather_api.forecast({ location }).then(set_forecast_response)
+        weather_api.forecast({ location })
+            .then(set_forecast_response)
+            .catch(() => {})
     }, [location])
 
     const tempreture_unit = useContext(SettingsContext)
@@ -53,8 +56,9 @@ export default function LocationCard({ location, is_favourited, on_update, on_re
                     }
 
                     <Autocomplete
+                        freeSolo
                         className={ style.location_name }
-                        options={ ['London', 'Paris'] }
+                        options={ cities }
                         value={ location }
                         onChange={ (_, value) => on_location_change(value) }
                     />

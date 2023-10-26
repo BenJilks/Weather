@@ -4,6 +4,7 @@ import { Button, Switch } from '@mui/joy'
 import type { TempretureUnit } from './settings.ts'
 import { SettingsContext } from './settings.ts'
 import LocationCard from './LocationCard.tsx'
+import cities from './cities.ts'
 import style from './App.module.css'
 
 interface Location {
@@ -62,6 +63,7 @@ function App() {
                         <LocationCard
                             location={ location.location }
                             is_favourited={ location.is_favourited }
+                            cities={ cities }
                             on_update={ (location, is_favourited) => on_location_change(index, location, is_favourited) }
                             on_remove={ () => on_remove(index) }
                         />
