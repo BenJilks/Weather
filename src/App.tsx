@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react'
-import { Button } from '@mui/joy'
+import { useState, useEffect, createContext } from 'react'
+import { Button, Switch } from '@mui/joy'
 
 import LocationCard from './LocationCard.tsx'
 import style from './App.module.css'
+
+const settings_context = createContext('Settings')
 
 interface Location {
     location: string,
@@ -11,7 +13,7 @@ interface Location {
 
 function App() {
     const [locations, set_locations] = useState(
-        JSON.parse(localStorage.getItem('locations') ?? '[]'))
+        JSON.parse(localStorage.getItem('locations') ?? '[]') as Location[])
 
     useEffect(() => {
         localStorage.setItem('locations', JSON.stringify(locations))
@@ -41,6 +43,12 @@ function App() {
 
     return (
         <div className={ style.location_list }>
+            <div className={ style.settings }>
+                <Switch id='tempreture-mode' />
+                <label for='tempreture-mode'>C / F</label>
+            </div>
+
+            <ContextProg
             {
                 locations
                     .sort((a, b) => (a.is_favourited ? 0 : 1) - (b.is_favourited ? 0 : 1))
@@ -53,6 +61,7 @@ function App() {
                         />
                     )
             }
+
             <div className={ style.actions }>
                 <Button variant='outlined' onClick={ on_add_new }>Add New Location</Button>
             </div>
