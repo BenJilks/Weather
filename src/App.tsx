@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@mui/joy'
 
 import LocationCard from './LocationCard.tsx'
@@ -10,10 +10,12 @@ interface Location {
 }
 
 function App() {
-    const [locations, set_locations] = useState([
-        { location: 'London', is_favourited: false },
-        { location: 'Paris', is_favourited: false },
-    ])
+    const [locations, set_locations] = useState(
+        JSON.parse(localStorage.getItem('locations') ?? '[]'))
+
+    useEffect(() => {
+        localStorage.setItem('locations', JSON.stringify(locations))
+    }, [locations])
 
     const on_add_new = () => {
         set_locations([
