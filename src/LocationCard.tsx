@@ -1,9 +1,10 @@
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useState, useContext } from 'react'
 import { Card, Typography, Button, Autocomplete } from '@mui/joy'
 import { StarOutlined, StarBorder } from '@mui/icons-material'
 import style from './LocationCard.module.css'
 
 import HourCard from './HourCard.tsx'
+import { SettingsContext } from './settings.ts'
 import { ForecastResponse } from './weather_api.ts'
 import * as weather_api from './weather_api.ts'
 
@@ -23,6 +24,11 @@ export default function LocationCard({ location, is_favourited, on_update, on_re
     useEffect(() => {
         weather_api.forecast({ location }).then(set_forecast_response)
     }, [location])
+
+    const tempreture_unit = useContext(SettingsContext)
+    const tempreture = tempreture_unit === 'Celsius'
+        ? `${ current?.temp_c }°C`
+        : `${ current?.temp_f }°F`
 
     const on_location_change = (value: string | null) => {
         if (value) {
@@ -53,7 +59,9 @@ export default function LocationCard({ location, is_favourited, on_update, on_re
                         onChange={ (_, value) => on_location_change(value) }
                     />
 
-                    <Typography className={ style.tempreture } level='body-md'>{ current?.temp_c }°C</Typography>
+                    <Typography className={ style.tempreture } level='body-md'>
+                        { tempreture ?? 'Loading' }
+                    </Typography>
                 </div>
 
                 <div className={ style.hour_list }>

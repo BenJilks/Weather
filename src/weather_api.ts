@@ -22,6 +22,7 @@ export interface Hour {
 interface Current {
     last_update_epoch: number,
     temp_c: number,
+    temp_f: number,
     condition: Condition,
 }
 

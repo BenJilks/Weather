@@ -1,10 +1,10 @@
-import { useState, useEffect, createContext } from 'react'
+import { useState, useEffect } from 'react'
 import { Button, Switch } from '@mui/joy'
 
+import type { TempretureUnit } from './settings.ts'
+import { SettingsContext } from './settings.ts'
 import LocationCard from './LocationCard.tsx'
 import style from './App.module.css'
-
-const settings_context = createContext('Settings')
 
 interface Location {
     location: string,
@@ -14,6 +14,7 @@ interface Location {
 function App() {
     const [locations, set_locations] = useState(
         JSON.parse(localStorage.getItem('locations') ?? '[]') as Location[])
+    const [tempreture_unit, set_tempreture_unit] = useState('Celsius' as TempretureUnit)
 
     useEffect(() => {
         localStorage.setItem('locations', JSON.stringify(locations))
@@ -44,11 +45,16 @@ function App() {
     return (
         <div className={ style.location_list }>
             <div className={ style.settings }>
-                <Switch id='tempreture-mode' />
+                <Switch
+                    id='tempreture-mode'
+                    value={ tempreture_unit === 'Fahrenheit' }
+                    onChange={ event => set_tempreture_unit(event.target.checked ? 'Fahrenheit' : 'Celsius') }
+                />
+
                 <label for='tempreture-mode'>C / F</label>
             </div>
 
-            <ContextProg
+            <SettingsContext.Provider value={ tempreture_unit }>
             {
                 locations
                     .sort((a, b) => (a.is_favourited ? 0 : 1) - (b.is_favourited ? 0 : 1))
@@ -61,6 +67,7 @@ function App() {
                         />
                     )
             }
+            </SettingsContext.Provider>
 
             <div className={ style.actions }>
                 <Button variant='outlined' onClick={ on_add_new }>Add New Location</Button>
