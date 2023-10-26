@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Button, Switch } from '@mui/joy'
 
-import type { TempretureUnit } from './settings.ts'
+import type { TemperatureUnit } from './settings.ts'
 import { SettingsContext } from './settings.ts'
 import LocationCard from './LocationCard.tsx'
 import cities from './cities.ts'
@@ -15,16 +15,16 @@ interface Location {
 function App() {
     const [locations, set_locations] = useState(
         JSON.parse(localStorage.getItem('locations') ?? '[]') as Location[])
-    const [tempreture_unit, set_tempreture_unit] = useState(
-        (localStorage.getItem('tempreture_unit') ?? 'Celsius') as TempretureUnit)
+    const [temperature_unit, set_temperature_unit] = useState(
+        (localStorage.getItem('temperature_unit') ?? 'Celsius') as TemperatureUnit)
 
     useEffect(() => {
         localStorage.setItem('locations', JSON.stringify(locations))
     }, [locations])
 
     useEffect(() => {
-        localStorage.setItem('tempreture_unit', tempreture_unit)
-    }, [tempreture_unit])
+        localStorage.setItem('temperature_unit', temperature_unit)
+    }, [temperature_unit])
 
     const on_add_new = () => {
         set_locations([
@@ -53,14 +53,14 @@ function App() {
             <div className={ style.settings }>
                 <Switch
                     id='tempreture-mode'
-                    value={ tempreture_unit === 'Fahrenheit' }
-                    onChange={ event => set_tempreture_unit(event.target.checked ? 'Fahrenheit' : 'Celsius') }
+                    checked={ temperature_unit === 'Fahrenheit' }
+                    onChange={ event => set_temperature_unit(event.target.checked ? 'Fahrenheit' : 'Celsius') }
                 />
 
                 <label for='tempreture-mode'>C / F</label>
             </div>
 
-            <SettingsContext.Provider value={ tempreture_unit }>
+            <SettingsContext.Provider value={ temperature_unit }>
             {
                 locations
                     .sort((a, b) => (a.is_favourited ? 0 : 1) - (b.is_favourited ? 0 : 1))

@@ -28,8 +28,8 @@ export default function LocationCard({ location, is_favourited, cities, on_updat
             .catch(() => {})
     }, [location])
 
-    const tempreture_unit = useContext(SettingsContext)
-    const tempreture = tempreture_unit === 'Celsius'
+    const temperature_unit = useContext(SettingsContext)
+    const temperature = temperature_unit === 'Celsius'
         ? `${ current?.temp_c }°C`
         : `${ current?.temp_f }°F`
 
@@ -64,7 +64,7 @@ export default function LocationCard({ location, is_favourited, cities, on_updat
                     />
 
                     <Typography className={ style.tempreture } level='body-md'>
-                        { tempreture ?? 'Loading' }
+                        { temperature ?? 'Loading' }
                     </Typography>
                 </div>
 

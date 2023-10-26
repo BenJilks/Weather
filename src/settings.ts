@@ -1,8 +1,8 @@
 import { createContext } from 'react'
 
-export type TempretureUnit = 
+export type TemperatureUnit = 
     'Celsius' |
     'Fahrenheit'
 
-export const SettingsContext = createContext('Celsius' as TempretureUnit)
+export const SettingsContext = createContext('Celsius' as TemperatureUnit)
 
