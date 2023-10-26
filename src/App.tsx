@@ -1,5 +1,3 @@
-import './App.css'
-
 import LocationCard from './LocationCard.tsx'
 
 function App() {
