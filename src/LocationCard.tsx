@@ -8,11 +8,11 @@ import * as weather_api from './weather_api.ts'
 
 interface Params {
     location: string,
+    on_location_change: (location: string) => void,
+    on_remove: () => void,
 }
 
-export default function LocationCard(params: Params) {
-    const [location, set_location] = useState(params.location)
-
+export default function LocationCard({ location, on_location_change, on_remove }: Params) {
     const [forecast_response, set_forecast_response] = useState(null as null | ForecastResponse)
     const forecast = forecast_response?.forecast
     const day = forecast?.forecastday?.[0]
@@ -20,15 +20,6 @@ export default function LocationCard(params: Params) {
     useEffect(() => {
         weather_api.forecast({ location }).then(set_forecast_response)
     }, [location])
-
-    const on_remove = () => {
-    }
-
-    const on_location_change = (value: string | null) => {
-        if (value) {
-            set_location(value)
-        }
-    }
 
     return (
         <Card>
@@ -39,7 +30,7 @@ export default function LocationCard(params: Params) {
                         className={ style.location_name }
                         options={ ['London', 'Paris'] }
                         value={ location }
-                        onChange={ (_, value) => on_location_change(value) }
+                        onChange={ (_, value) => { if (value) on_location_change(value) } }
                     />
                     <Typography className={ style.tempreture } level='body-md'>{ current?.temp_c }°C</Typography>
                 </div>
