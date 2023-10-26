@@ -15,11 +15,16 @@ interface Location {
 function App() {
     const [locations, set_locations] = useState(
         JSON.parse(localStorage.getItem('locations') ?? '[]') as Location[])
-    const [tempreture_unit, set_tempreture_unit] = useState('Celsius' as TempretureUnit)
+    const [tempreture_unit, set_tempreture_unit] = useState(
+        (localStorage.getItem('tempreture_unit') ?? 'Celsius') as TempretureUnit)
 
     useEffect(() => {
         localStorage.setItem('locations', JSON.stringify(locations))
     }, [locations])
+
+    useEffect(() => {
+        localStorage.setItem('tempreture_unit', tempreture_unit)
+    }, [tempreture_unit])
 
     const on_add_new = () => {
         set_locations([
